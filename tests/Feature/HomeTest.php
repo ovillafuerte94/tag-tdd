@@ -8,6 +8,8 @@ use Tests\TestCase;
 
 class HomeTest extends TestCase
 {
+    use RefreshDatabase;
+
     public function testEmpty()
     {
         $this
