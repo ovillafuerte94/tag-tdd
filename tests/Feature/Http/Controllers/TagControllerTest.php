@@ -2,9 +2,10 @@
 
 namespace Tests\Feature\Http\Controllers;
 
-use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Foundation\Testing\WithFaker;
+use App\Models\Tag;
 use Tests\TestCase;
+use Illuminate\Foundation\Testing\WithFaker;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 
 class TagControllerTest extends TestCase
 {
@@ -26,5 +27,27 @@ class TagControllerTest extends TestCase
             en la tabla de etiquetas
         */
         $this->assertDatabaseHas('tags', ['name' => 'Php']);
+    }
+
+    public function testDestroy()
+    {
+        /*
+            crear etiqueta
+        */
+        $tag = Tag::factory()->create();
+
+        /*
+            eliminar etiqueta creada
+            verificar que redirecciona
+        */
+        $this->delete("tags/$tag->id", [
+            'name' => 'Php'
+        ])->assertRedirect('/');
+
+
+        /*
+            verificar que no existe
+        */
+        $this->assertDatabaseMissing('tags', ['name' => $tag->name]);
     }
 }
