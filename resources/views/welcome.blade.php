@@ -12,7 +12,9 @@
     <h4>Listado de etiquetas</h4>
     <table>
         @forelse ($tags as $tag)
-
+        <tr>
+            <td>{{ $tag->name }}</td>
+        </tr>
         @empty
         <tr>
             <td>
