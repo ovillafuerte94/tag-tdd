@@ -12,4 +12,12 @@ class Tag extends Model
     protected $fillable = [
         'name'
     ];
+
+    // Accessor
+    public function getSlugAttribute()
+    {
+        return strtolower(
+            str_replace(' ', '-', $this->name)
+        );
+    }
 }
